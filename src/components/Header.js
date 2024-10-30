@@ -18,7 +18,7 @@ function Header() {
 
         <ul className="header-nav-links SMN_effect-6">
           <li>
-            <a href="#smartfactory" data-hover="SMART FACTORY">SMART FACTORY</a>
+            <a href="#smart-factory" data-hover="SMART FACTORY">SMART FACTORY</a>
           </li>
           <li>
             <a href="#service" data-hover="SERVICE">SERVICE</a>

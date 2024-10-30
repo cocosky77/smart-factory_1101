@@ -83,7 +83,6 @@ function About() {
             <span>'사람을 위한 기술, 인류의 문제 해결'</span>이라는 철학을
             바탕으로
           </p>
-
           <p>도움을 주는 IT 솔루션을 제공하여</p>
           <p>더 나은 미래를 함께 만들어가고자 합니다.</p>
         </div>
@@ -135,12 +134,30 @@ function About() {
                     <div className="history-year-detail-month">9</div>
                     <div className="history-year-detail-sub">법인 전환</div>
                 </div>
-            </div>
-            <div className="history-year-2021">
-                <div className="history-year-title">2021</div>
                 <div className="history-year-detail">
-                    <div className="history-year-detail-month">4</div>
-                    <div className="history-year-detail-sub">중소벤처기업부 재도전성공패키지 과제 선정<br /> <span>최우수 평가 달성 (1억원)</span></div>
+                    <div className="history-year-detail-month">8</div>
+                    <div className="history-year-detail-sub">벤처기업확인 <span>(혁신성장유형)</span></div>
+                </div>
+                <div className="history-year-detail">
+                    <div className="history-year-detail-month">7</div>
+                    <div className="history-year-detail-sub">기술투자형 스마트 도시 특화기업 엑셀러레이팅 최종 선정<br /> <span>스마트 AI CCTV 관제를 활용한 법보행 객체 추적 및 사고 발생 감지 솔루션</span></div>
+                </div>
+                <div className="history-year-detail">
+                    <div className="history-year-detail-month">5</div>
+                    <div className="history-year-detail-sub-content">
+                      <div className="history-year-detail-sub">중소벤처기업부 창업성장기술개발 디딤돌 과제 선정<br /> <span>CNN 기반 딥러닝을 활용한 영상 분석 솔루션 개발 (1.1억원)</span><br /></div>
+                      <div className="history-year-detail-sub">숭실대학교 벤처중소기업센터 입주 기업 선정<br /></div>
+                      <div className="history-year-detail-sub">과학기술정보방송통신위원장 표창장 수상<br /></div>
+                      <div className="history-year-detail-sub">국토교통위원장 표창장 수상<br /></div>
+                      <div className="history-year-detail-sub">K-ESG 경영혁신 대상 수상<br /></div>
+                    </div>
+                </div>
+            </div>
+            <div className="history-year-2020">
+                <div className="history-year-title">2020</div>
+                <div className="history-year-detail">
+                    <div className="history-year-detail-month">8</div>
+                    <div className="history-year-detail-sub">엔아이소프트 회사 설립</div>
                 </div>
             </div>
         </div>

@@ -135,7 +135,15 @@
     font-size: 24px;
     display: flex;
     gap: 50px;
+    margin: 30px 0;
 }
+
+.history-year-detail-sub-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .history-year-detail-month {
     width: 50px;
     color: #539df1;

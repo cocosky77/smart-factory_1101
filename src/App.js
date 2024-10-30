@@ -4,8 +4,8 @@ import SmartFactory from "./components/SmartFactory";
 import Service from "./components/Service";
 import Effect from "./components/Effect";
 import About from "./components/About";
-// import ContactUs from "./components/ContactUs";
-// import Footer from "./components/Footer";
+import ContactUs from "./components/ContactUs";
+import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
@@ -26,10 +26,10 @@ function App() {
       <section id="about">
         <About />
       </section>
-      {/* <section id="contact">
+      <section id="contact">
         <ContactUs />
       </section>
-        <Footer /> */}
+      <Footer />
     </div>
   );
 }
