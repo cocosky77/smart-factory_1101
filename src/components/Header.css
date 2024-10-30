@@ -1,0 +1,160 @@
+.header {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  height: 1056px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 0;
+}
+
+.header-nav-section,
+.header-title-section {
+  position: relative;
+  z-index: 1;
+  width: 100%; /* 반응형에서 화면 전체 너비 차지 */
+  padding: 0 30px; /* 양쪽 여백 */
+  box-sizing: border-box;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.header-nav-section {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 110px;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: rgba(18, 18, 18, 0.7);
+  z-index: 1000;
+}
+
+.header-nav-links {
+  list-style: none;
+  align-items: center;
+  display: flex;
+  gap: 50px;
+}
+
+.header-nav-links a {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Lato', sans-serif;
+  font-size: 17px;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.header-nav-links.SMN_effect-6 a {
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+}
+
+.header-nav-links.SMN_effect-6 a:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  padding: 10px 0;
+  max-width: 0;
+  border-bottom: 2px solid #539df1;
+  color: #539df1;
+  content: attr(data-hover);
+  transition: max-width 0.5s;
+  white-space: nowrap;
+}
+
+.header-nav-links.SMN_effect-6 a:hover:before,
+.header-nav-links.SMN_effect-6 a:focus:before {
+  max-width: 100%;
+}
+
+
+.header-title-section {
+  width: 100%;
+  max-width: 1920px;
+  height: 100%;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 350px;
+}
+
+.header-title {
+  margin: 50px 0;
+  font-size: 96px;
+  color: #fff;
+  text-shadow: 0px 4px 4px rgb(0, 0, 0, 0.25);
+}
+
+.header-title span {
+  color: #539df1;
+  font-weight: bold;
+  text-shadow: 0px 8px 8px rgb(0, 0, 0, 0.5);
+}
+
+/* Contact 버튼을 고정 */
+.contact-button-fixed {
+  display: block;
+  position: fixed;
+  top: 30%;
+  right: 20px;
+  width: 120px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 1001;
+  transition: all 0.2s;
+}
+
+/* Contact 버튼에 대한 색상 및 애니메이션 효과 */
+.contact-button-fixed.btnLightBlue {
+  background: #539df1;
+  box-shadow: 0px 5px 0px 0px #2b517c;
+}
+
+.contact-button-fixed.btnPush:hover {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.contact-button-fixed.btnLightBlue.btnPush:hover {
+  box-shadow: 0px 0px 0px 0px #2b517c;
+}

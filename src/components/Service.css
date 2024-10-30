@@ -1,0 +1,48 @@
+.service {
+    width: 100vw;
+    height: 2200px;
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #121212;
+    color: white;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  .service-title {
+    font-size: 58px;
+    font-weight: bold;
+    color: #539df1;
+    margin-bottom: 50px;
+  }
+  
+  .service-description {
+    font-size: 32px;
+    margin-bottom: 60px;
+    color: #ffffff;
+    margin-top: 50px;
+    margin-bottom: 100px;
+  }
+  
+  .service-description p {
+    margin: 10px 0;
+  }
+  
+  .service-description span {
+    color: #539df1;
+    font-weight: bold;
+  }
+
+    /* 원 3개 부분*/
+    .smart-factory-features {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        max-width: 1920px;
+        margin: 0 auto;
+      }
+
+.service-feature img {
+    width: 1280px;
+}

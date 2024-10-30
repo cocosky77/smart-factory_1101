@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Header from "./components/Header";
+import SmartFactory from "./components/SmartFactory";
+import Service from "./components/Service";
+import Effect from "./components/Effect";
+import About from "./components/About";
+// import ContactUs from "./components/ContactUs";
+// import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section id="header">
+        <Header />
+      </section>
+      <section id="smart-factory">
+        <SmartFactory />
+      </section>
+      <section id="service">
+        <Service />
+      </section>
+      <section id="effect">
+        <Effect />
+      </section>
+      <section id="about">
+        <About />
+      </section>
+      {/* <section id="contact">
+        <ContactUs />
+      </section>
+        <Footer /> */}
     </div>
   );
 }
