@@ -216,6 +216,7 @@ function Main() {
 
         {/* 스마트 팩토리 원 3개 */}
         <div className="smart-factory-features">
+          <p className="line"></p>
           <div className="feature-circle">
             <p>
               Smart<br></br>Manufacturing
@@ -230,6 +231,7 @@ function Main() {
             <p>Analytics</p>
             <img src={sfAnalytics} alt="Analytics Icon" />
           </div>
+          <p className="line"></p>
         </div>
 
         <div className="background">

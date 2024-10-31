@@ -137,28 +137,33 @@
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 0 auto;
+    .line {
+      flex: 1;
+      height: 2px;
+      background-color: #fff;
+    }
   }
-  
   /* 양옆의 선을 추가 */
-  .smart-factory-features::before,
-  .smart-factory-features::after {
-    content: "";
-    position: absolute;
-    top: 50%; /* 원의 중앙에 위치하게 함 */
-    width: 112.9vw; /* 화면의 너비로 선을 설정 */
-    height: 2px;
-    background-color: #fff;
-    z-index: 1;
-  }
+  // .smart-factory-features::before,
+  // .smart-factory-features::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: 50%; /* 원의 중앙에 위치하게 함 */
+  //   // width: 112.9vw; /* 화면의 너비로 선을 설정 */
+  //   height: 2px;
+  //   background-color: #fff;
+  //   z-index: 1;
+  // }
   
-  .smart-factory-features::before {
-    left: -100vw; /* 왼쪽으로 선을 확장 */
-  }
+  // .smart-factory-features::before {
+  //   left: -100vw; /* 왼쪽으로 선을 확장 */
+  // }
   
-  .smart-factory-features::after {
-    right: -100vw; /* 오른쪽으로 선을 확장 */
-  }
+  // .smart-factory-features::after {
+  //   right: -100vw; /* 오른쪽으로 선을 확장 */
+  // }
   
   .feature-circle {
     width: 450px;
@@ -173,7 +178,7 @@
   }
   
   /* 가운데 원은 앞쪽에 오도록, 양쪽 원은 겹치게 조정 */
-  .smart-factory-features .feature-circle:nth-child(2) {
+  .smart-factory-features .feature-circle:nth-child(3) {
     margin-left: -50px;
     margin-right: -50px;
     z-index: 2; /* 가운데 원을 앞으로 가져오기 */
@@ -266,7 +271,7 @@
       width: 100%;
       // height: 1800px;
       text-align: center;
-      padding: 0px 20px;
+      padding: 120px 20px;
       background-color: #121212;
       color: white;
       margin: 0 auto;
@@ -971,10 +976,14 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 20px;
+      .line{
+        opacity: 0;
+        display: none;
+      }
       .feature-circle{
         width: 200px;
         height: 200px;
-        &:nth-child(2){
+        &:nth-child(3){
           margin-left: 0;
           margin-right: 0;
         }
@@ -984,7 +993,7 @@
     .smart-factory-title,
     .service-title,
     .effect-title{
-      font-size: 36px;
+      // font-size: 36px !important;
     }
     .smart-factory-description , 
     .service-description ,

@@ -20,6 +20,8 @@ function Header() {
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
+
+  
   // 스크롤 위치에 따라 activeSection을 업데이트하는 함수
   const handleScroll = () => {
     const sections = [
@@ -46,15 +48,57 @@ function Header() {
         }
       }
     });
+
   };
+  // const handleLinkClick = (sectionId) => {
+  //   const section = document.querySelector(sectionId);
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: "smooth" }); // 부드럽게 스크롤
+  //     setActiveSection(sectionId); // 섹션 활성화 상태 업데이트
+  //     setMenuActive(false); // 메뉴 닫기
+  //   }
+  // };
   const handleLinkClick = (sectionId) => {
     const section = document.querySelector(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" }); // 부드럽게 스크롤
-      setActiveSection(sectionId); // 섹션 활성화 상태 업데이트
-      setMenuActive(false); // 메뉴 닫기
+      section.scrollIntoView({ behavior: "smooth" });
+      
+      // 강제로 상태를 업데이트하기 위해 약간 지연 후 handleScroll 호출
+      setTimeout(() => {
+        setActiveSection(sectionId); // 명시적으로 선택된 섹션으로 설정
+        if (sectionId === "#smart-factory") {
+          setIsHeaderActive(true);
+        } else if (sectionId === "#main") {
+          setIsHeaderActive(false);
+        }
+      }, 300); // 300ms 지연 (필요에 따라 조정 가능)
+      
+      setMenuActive(false);
     }
   };
+  
+  // 임시로 작업함 // 모바일 환경에서 강제로 active되게 임시로 작업해놨습니다. 시간날때 수정하겠습니다..
+  useEffect(() => {
+    const sections = document.querySelectorAll("#main, #smart-factory, #service, #effect, #about, #contact");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+            setIsHeaderActive(entry.target.id !== "main");
+          }
+        });
+      },
+      {
+        threshold: 0.5, // 섹션이 50% 이상 보일 때 활성화
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
