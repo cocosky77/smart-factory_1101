@@ -1,5 +1,6 @@
 import React from "react";
 import "./Footer.css";
+import nisoftLogo from "../assets/images/logo.png";
 
 function Footer() {
 
@@ -7,7 +8,7 @@ function Footer() {
     <footer className="footer">
     <div className="footer-company">
         <div className="footer-logo">
-            <img src="/logo.png" alt="FooterLogo" />
+            <img src={nisoftLogo} alt="FooterLogo" />
         </div>
         <div className="footer-title">엔아이소프트(주)</div>
         <div className="footer-detail">
@@ -17,8 +18,8 @@ function Footer() {
         </div>
     </div>
     <div className="footer-info">
-        <div>개인정보처리방침</div>
-        <div>이용약관</div>
+      <div className="button">개인정보처리방침</div>
+      <div className="button">이용약관</div>
     </div>
     </footer>
   );
