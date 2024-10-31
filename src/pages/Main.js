@@ -117,12 +117,12 @@ function Main() {
 
   const [activeTab, setActiveTab] = useState("service");
 
-  document.querySelector('.contact-button-fixed').addEventListener('click', function (e) {
-    e.preventDefault(); 
-    document.querySelector('#contact').scrollIntoView({ 
-      behavior: 'smooth' 
-    });
-  });
+  // document.querySelector('.contact-button-fixed').addEventListener('click', function (e) {
+  //   e.preventDefault(); 
+  //   document.querySelector('#contact').scrollIntoView({ 
+  //     behavior: 'smooth' 
+  //   });
+  // });
 
   
   return (
@@ -386,73 +386,88 @@ function Main() {
           </div>
 
           <form onSubmit={(e) => e.preventDefault()}>
-            <label>담당자*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("담당자를 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>회사(소속)*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("회사(소속)를 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>이메일*</label>
-            <input
-              type="email"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("올바른 이메일을 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>연락처*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("연락처를 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>제목*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("제목을 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>내용*</label>
-            <textarea
-              rows="10"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("내용을 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            ></textarea>
-
-            <div className="checkbox">
-              <input type="checkbox" id="agreement" />
-              <label htmlFor="agreement">
-                개인정보 수집 및 이용에 동의합니다.
-              </label>
+            <div className="contact-form__input-box">
+              <label>담당자*</label>
+              <input
+                type="text"
+                required
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("담당자를 입력해 주세요")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+              />
+              <p className="err-txt">담당자를 써주시기 바라겠습니다.</p>
             </div>
-            <p className="err-txt">문의하기가 실패했습니다. 다시 시도해 주십시오</p>
+            <div className="contact-form__input-box">
+              <label>회사(소속)*</label>
+              <input
+                type="text"
+                required
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("회사(소속)를 입력해 주세요")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+              />
+              <p className="err-txt">회사 소속을 써주시기 바라겠습니다.</p>
+            </div>
+            <div className="contact-form__input-box">
+              <label>이메일*</label>
+              <input
+                type="email"
+                required
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("올바른 이메일을 입력해 주세요")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+              />
+              <p className="err-txt">이메일을 써주시기 바라겠습니다.</p>
+            </div>
+            <div className="contact-form__input-box">
+              <label>연락처*</label>
+              <input
+                type="text"
+                required
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("연락처를 입력해 주세요")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+              />
+              <p className="err-txt">연락처를 써주시기 바라겠습니다.</p>
+            </div>
+            <div className="contact-form__input-box">
+              <label>제목*</label>
+              <input
+                type="text"
+                required
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("제목을 입력해 주세요")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+              />
+              <p className="err-txt">제목을 써주시기 바라겠습니다.</p>
+            </div>
+            <div className="contact-form__textarea-box">
+              <label>내용*</label>
+              <textarea
+                rows="10"
+                required
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("내용을 입력해 주세요")
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+              ></textarea>
+              <p className="err-txt">내용을 써주시기 바라겠습니다.</p>
+            </div>
+            <div className="contact-form__check-box">
+              <div className="checkbox">
+                <input type="checkbox" id="agreement" />
+                <label htmlFor="agreement">
+                  개인정보 수집 및 이용에 동의합니다.
+                </label>
+              </div>
+            </div>
+
+            <p className="err-txt">개인정보 수집 및 이용에 동의 해주시기 바라겠습니다.</p>
             <button type="submit" className="submit-button"
               onClick={()=>setSuccessModalOpen(true)}
             >

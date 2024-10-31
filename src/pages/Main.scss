@@ -623,6 +623,31 @@
     
     .contact-form {
       flex: 1;
+      .contact-form__textarea-box{
+        .err-txt{
+          bottom:-20px !important;
+        }
+      }
+      .contact-form__input-box,.contact-form__textarea-box{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        padding-bottom: 10px;
+        .err-txt{
+          position: absolute;
+          left: 100px;
+          bottom:0;
+          font-size: 12px;
+        }
+        label{
+          width: 122px;
+        }
+        input,textarea{
+          width: 100%;
+        }
+      }
     }
     
     .form-tabs {
