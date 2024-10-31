@@ -880,6 +880,7 @@
     .contact-button-fixed {
       width: 100px;
       line-height: 40px;
+      right: 16px;
     }
     label{
       font-size: 14px;
@@ -1021,6 +1022,14 @@
 
 @media (max-width:500px) {
   .main{
+    .visual-title{
+      p{
+        font-size: 30px;
+        span{
+          font-size: 30px;
+        }
+      }
+    }
     .smart-factory{
       .background{
         img{
