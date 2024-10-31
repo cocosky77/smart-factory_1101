@@ -287,8 +287,8 @@ function Main() {
             <div className="card" key={card.id}>
               <div className="num">{card.number}</div>
               <div className="title">
-                <span>{card.title.split("를 통한")[0]}를 통한</span>
-                <br /> {card.title.split("를 통한")[1]}
+                <span>{card.title}</span>
+                {/* <br /> {card.title.split("를 통한")[1]} */}
               </div>
               <div className="detail">{card.description}</div>
               <div className="btns">
