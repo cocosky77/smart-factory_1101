@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 import "./Main.scss";
 //이미지들
 import sfManufacture from "../assets/images/sf-manufacture.png";
@@ -19,12 +18,9 @@ import aboutBg from "../assets/images/about-bg.png";
 
 import smartFactoryVideo from "../assets/smartfactory.mp4";
 import SuccessModal from "../components/SuccessModal";
-
+import axios from "axios";
 
 function Main() {
-
-  const [successModalOpen, setSuccessModalOpen] = useState();
-
   const effectCards = [
     {
       id: 1,
@@ -54,7 +50,6 @@ function Main() {
       image: effectAuto,
     },
   ];
-
 
   const CompanyCard = [
     {
@@ -87,58 +82,120 @@ function Main() {
     },
   ];
 
-
   const MainDevelop = [
     {
       id: 1,
       sub: "ERP 및 MES 시스템 개발",
     },
     {
-        id: 2,
-        sub: "코스콤 API를 연동한 Trading View 차트 개발",
-      },
-      {
-        id: 3,
-        sub: "결혼 중개 매칭 알고리즘을 적용한 앱 개발",
-      },
-      {
-        id: 4,
-        sub: "남녀간의 성향분석 데이터셋을 활용한 LSTM 학습 모델",
-      },
-      {
-        id: 5,
-        sub: "Rest API 기반 주문, 재고 관리 시스템 / 앱, 웹",
-      },
-      {
-        id: 6,
-        sub: "인공지능 CCTV 관제 시스템 솔루션",
-      },
+      id: 2,
+      sub: "코스콤 API를 연동한 Trading View 차트 개발",
+    },
+    {
+      id: 3,
+      sub: "결혼 중개 매칭 알고리즘을 적용한 앱 개발",
+    },
+    {
+      id: 4,
+      sub: "남녀간의 성향분석 데이터셋을 활용한 LSTM 학습 모델",
+    },
+    {
+      id: 5,
+      sub: "Rest API 기반 주문, 재고 관리 시스템 / 앱, 웹",
+    },
+    {
+      id: 6,
+      sub: "인공지능 CCTV 관제 시스템 솔루션",
+    },
   ];
 
   const [activeTab, setActiveTab] = useState("service");
 
-  document.querySelector('.contact-button-fixed').addEventListener('click', function (e) {
-    e.preventDefault(); 
-    document.querySelector('#contact').scrollIntoView({ 
-      behavior: 'smooth' 
-    });
-  });
+  const [successModalOpen, setSuccessModalOpen] = useState();
+  const [errorMsg, setErrorMsg] = useState(false);
 
-  
+  const initialFormState = {
+    manager: "",
+    company: "",
+    email: "",
+    phone_number: "",
+    title: "",
+    content: "",
+  };
+  const [formData, setFormData] = useState(initialFormState);
+
+  const resetForm = () => {
+    setFormData(initialFormState);
+    setSuccessModalOpen(false);
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleInvalid = (e, message) => {
+    e.target.setCustomValidity(message);
+  };
+
+  const resetCustomValidity = (e) => {
+    e.target.setCustomValidity("");
+  };
+
+  const [postLoading, setPostLoading] = useState(false);
+  const handleSubmit = async (e) => {
+    setPostLoading(true);
+    e.preventDefault();
+
+    if (e.target.checkValidity()) {
+      try {
+        const res = await axios.post(
+          "https://www.miracle-aws-api.com/api/smart/factory/email/send",
+          null,
+          {
+            params: formData,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("성공", res);
+        setSuccessModalOpen(true);
+        setErrorMsg(false);
+        setPostLoading(false);
+      } catch (error) {
+        console.error("애러", error);
+        setErrorMsg(true);
+        setPostLoading(false);
+      }
+    }
+  };
+
   return (
     <div className="main" id="main">
-      <div className="visual-title-section" >
+      <div className="visual-title-section">
         <video className="video-background" autoPlay loop muted playsInline>
           <source src={smartFactoryVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="visual-title">
-          <p>WE ARE BUILDING THE<br /> <span>OPTIMAL SMART FACTORY</span><br />SYSTEM</p>
+          <p>
+            WE ARE BUILDING THE
+            <br /> <span>OPTIMAL SMART FACTORY</span>
+            <br />
+            SYSTEM
+          </p>
         </div>
       </div>
 
       {/* 고정된 Contact 버튼 */}
-      <a href="#contact" className="contact-button-fixed button btnPush btnLightBlue">
+      <a
+        href="#contact"
+        className="contact-button-fixed button btnPush btnLightBlue"
+      >
         Contact
       </a>
 
@@ -160,7 +217,9 @@ function Main() {
         {/* 스마트 팩토리 원 3개 */}
         <div className="smart-factory-features">
           <div className="feature-circle">
-            <p>Smart<br></br>Manufacturing</p>
+            <p>
+              Smart<br></br>Manufacturing
+            </p>
             <img src={sfManufacture} alt="Smart Manufacturing Icon" />
           </div>
           <div className="feature-circle">
@@ -183,20 +242,25 @@ function Main() {
         <div className="service-describe">
           <p className="service-title">SERVICE</p>
           <p className="service-description">
-            <p><span>ERP</span>와 <span>MES</span> 시스템을 기반으로</p>
             <p>
-              <span>자원관리 및 생산 과정</span>을 통합하여 기업에 최적화된 <span>맞춤형 솔루션</span> 및
+              <span>ERP</span>와 <span>MES</span> 시스템을 기반으로
             </p>
-            <p>효율적 운영과 생산성 향상을 위한 <span>통합 서비스</span>를 지원합니다. </p>
+            <p>
+              <span>자원관리 및 생산 과정</span>을 통합하여 기업에 최적화된{" "}
+              <span>맞춤형 솔루션</span> 및
+            </p>
+            <p>
+              효율적 운영과 생산성 향상을 위한 <span>통합 서비스</span>를
+              지원합니다.{" "}
+            </p>
           </p>
         </div>
 
         {/* 서비스 구조 */}
         <div className="service-feature">
-          <img src={service5ContentImg} alt="5분류"/>
+          <img src={service5ContentImg} alt="5분류" />
         </div>
       </section>
-
 
       <section className="effect" id="effect">
         {/* Effect + 설명 */}
@@ -208,8 +272,9 @@ function Main() {
               실현합니다.
             </p>
             <p>
-              <span>실시간 데이터 분석</span>, <span>자동화</span>, <span>예측 유지보수</span>를 통해
-              유연하고 효율적인 생산 환경을 구축하여,
+              <span>실시간 데이터 분석</span>, <span>자동화</span>,{" "}
+              <span>예측 유지보수</span>를 통해 유연하고 효율적인 생산 환경을
+              구축하여,
             </p>
             <p>미래형 제조 혁신을 선도합니다. </p>
           </p>
@@ -217,257 +282,309 @@ function Main() {
 
         <div className="cards">
           {effectCards.map((card) => (
-              <div className="card" key={card.id}>
-                  <div className="num">{card.number}</div>
-                  <div className="title">
-                      <span>{card.title.split("를 통한")[0]}를 통한</span>
-                      <br /> {card.title.split("를 통한")[1]}
-                  </div>
-                  <div className="detail">{card.description}</div>
-                  <div className="btns">
-                      {card.tags.map((tag, index) => (
-                          <button className="btn" key={index}>{tag}</button>
-                      ))}
-                  </div>
-                  <div className="card-icon">
-                      <img src={card.image} alt={'Icon for ${card.title}'}/>
-                  </div>
+            <div className="card" key={card.id}>
+              <div className="num">{card.number}</div>
+              <div className="title">
+                <span>{card.title.split("를 통한")[0]}를 통한</span>
+                <br /> {card.title.split("를 통한")[1]}
               </div>
+              <div className="detail">{card.description}</div>
+              <div className="btns">
+                {card.tags.map((tag, index) => (
+                  <button className="btn" key={index}>
+                    {tag}
+                  </button>
+                ))}
+              </div>
+              <div className="card-icon">
+                <img src={card.image} alt={"Icon for ${card.title}"} />
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
+      <section className="about" id="about">
+        {/* 제목 */}
+        <h1 className="about-title">ABOUT</h1>
 
-
-
-    <section className="about" id="about">
-      {/* 제목 */}
-      <h1 className="about-title">ABOUT</h1>
-
-      {/* 회사 소개 텍스트 */}
-      <div
-        className="about-content"
-        style={{
-          backgroundImage: `url(${aboutBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="about-description">
-          <h2>NISOFT 엔아이소프트(주)</h2>
-          <p className="first">
-            끊임없는 기술 개발로 제조 기업의 디지털 전환을 이끌며,
-          </p>
-          <p>
-            <span>'사람을 위한 기술, 인류의 문제 해결'</span>이라는 철학을
-            바탕으로
-          </p>
-          <p>도움을 주는 IT 솔루션을 제공하여</p>
-          <p>더 나은 미래를 함께 만들어가고자 합니다.</p>
+        {/* 회사 소개 텍스트 */}
+        <div
+          className="about-content"
+          style={{
+            backgroundImage: `url(${aboutBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="about-description">
+            <h2>NISOFT 엔아이소프트(주)</h2>
+            <p className="first">
+              끊임없는 기술 개발로 제조 기업의 디지털 전환을 이끌며,
+            </p>
+            <p>
+              <span>'사람을 위한 기술, 인류의 문제 해결'</span>이라는 철학을
+              바탕으로
+            </p>
+            <p>도움을 주는 IT 솔루션을 제공하여</p>
+            <p>더 나은 미래를 함께 만들어가고자 합니다.</p>
+          </div>
         </div>
-      </div>
 
-      <div className="about-cards-cover">
-        <div className="about-cards">
-          {CompanyCard.map((card) => (
-            <div className="about-card" key={card.id}>
-              <div className="about-icon">
-                <img src={card.image} alt={"Icon for ${card.title}"} />
-              </div>
-              <div className="about-type">{card.title}</div>
-              <div className="about-detail">
-                {Array.isArray(card.description) ? (
-                  card.description.map((desc, index) => (
-                    <div key={index}>{desc}</div>
-                  ))
-                ) : (
-                  <div>{card.description}</div>
-                )}
-              </div>
-              <div className="about-vision">{card.vision}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-
-      <div className="history">
-        <div className="history-develop">
-          <div className="history-develop-title">주요 개발 내역</div>
-          {MainDevelop.map((sub) => (
-            <div className="history-develop-detail" key={sub.id}>{sub.sub}</div>
-          ))}
-        </div>
-        <div className="history-year">
-            <div className="history-year-2023">
-                <div className="history-year-title">2023</div>
-                <div className="history-year-detail">
-                    <div className="history-year-detail-month">4</div>
-                    <div className="history-year-detail-sub">중소벤처기업부 재도전성공패키지 과제 선정<br /> <span>최우수 평가 달성 (1억원)</span></div>
+        <div className="about-cards-cover">
+          <div className="about-cards">
+            {CompanyCard.map((card) => (
+              <div className="about-card" key={card.id}>
+                <div className="about-icon">
+                  <img src={card.image} alt={"Icon for ${card.title}"} />
                 </div>
+                <div className="about-type">{card.title}</div>
+                <div className="about-detail">
+                  {Array.isArray(card.description) ? (
+                    card.description.map((desc, index) => (
+                      <div key={index}>{desc}</div>
+                    ))
+                  ) : (
+                    <div>{card.description}</div>
+                  )}
+                </div>
+                <div className="about-vision">{card.vision}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="history">
+          <div className="history-develop">
+            <div className="history-develop-title">주요 개발 내역</div>
+            {MainDevelop.map((sub) => (
+              <div className="history-develop-detail" key={sub.id}>
+                {sub.sub}
+              </div>
+            ))}
+          </div>
+          <div className="history-year">
+            <div className="history-year-2023">
+              <div className="history-year-title">2023</div>
+              <div className="history-year-detail">
+                <div className="history-year-detail-month">4</div>
+                <div className="history-year-detail-sub">
+                  중소벤처기업부 재도전성공패키지 과제 선정
+                  <br /> <span>최우수 평가 달성 (1억원)</span>
+                </div>
+              </div>
             </div>
             <div className="history-year-2022">
-                <div className="history-year-title">2022</div>
-                <div className="history-year-detail">
-                    <div className="history-year-detail-month">12</div>
-                    <div className="history-year-detail-sub">K-소비자브랜드 대상 수상</div>
+              <div className="history-year-title">2022</div>
+              <div className="history-year-detail">
+                <div className="history-year-detail-month">12</div>
+                <div className="history-year-detail-sub">
+                  K-소비자브랜드 대상 수상
                 </div>
-                <div className="history-year-detail">
-                    <div className="history-year-detail-month">9</div>
-                    <div className="history-year-detail-sub">법인 전환</div>
+              </div>
+              <div className="history-year-detail">
+                <div className="history-year-detail-month">9</div>
+                <div className="history-year-detail-sub">법인 전환</div>
+              </div>
+              <div className="history-year-detail">
+                <div className="history-year-detail-month">8</div>
+                <div className="history-year-detail-sub">
+                  벤처기업확인 <span>(혁신성장유형)</span>
                 </div>
-                <div className="history-year-detail">
-                    <div className="history-year-detail-month">8</div>
-                    <div className="history-year-detail-sub">벤처기업확인 <span>(혁신성장유형)</span></div>
+              </div>
+              <div className="history-year-detail">
+                <div className="history-year-detail-month">7</div>
+                <div className="history-year-detail-sub">
+                  기술투자형 스마트 도시 특화기업 엑셀러레이팅 최종 선정
+                  <br />{" "}
+                  <span>
+                    스마트 AI CCTV 관제를 활용한 법보행 객체 추적 및 사고 발생
+                    감지 솔루션
+                  </span>
                 </div>
-                <div className="history-year-detail">
-                    <div className="history-year-detail-month">7</div>
-                    <div className="history-year-detail-sub">기술투자형 스마트 도시 특화기업 엑셀러레이팅 최종 선정<br /> <span>스마트 AI CCTV 관제를 활용한 법보행 객체 추적 및 사고 발생 감지 솔루션</span></div>
+              </div>
+              <div className="history-year-detail">
+                <div className="history-year-detail-month">5</div>
+                <div className="history-year-detail-sub-content">
+                  <div className="history-year-detail-sub">
+                    중소벤처기업부 창업성장기술개발 디딤돌 과제 선정
+                    <br />{" "}
+                    <span>
+                      CNN 기반 딥러닝을 활용한 영상 분석 솔루션 개발 (1.1억원)
+                    </span>
+                    <br />
+                  </div>
+                  <div className="history-year-detail-sub">
+                    숭실대학교 벤처중소기업센터 입주 기업 선정
+                    <br />
+                  </div>
+                  <div className="history-year-detail-sub">
+                    과학기술정보방송통신위원장 표창장 수상
+                    <br />
+                  </div>
+                  <div className="history-year-detail-sub">
+                    국토교통위원장 표창장 수상
+                    <br />
+                  </div>
+                  <div className="history-year-detail-sub">
+                    K-ESG 경영혁신 대상 수상
+                    <br />
+                  </div>
                 </div>
-                <div className="history-year-detail">
-                    <div className="history-year-detail-month">5</div>
-                    <div className="history-year-detail-sub-content">
-                      <div className="history-year-detail-sub">중소벤처기업부 창업성장기술개발 디딤돌 과제 선정<br /> <span>CNN 기반 딥러닝을 활용한 영상 분석 솔루션 개발 (1.1억원)</span><br /></div>
-                      <div className="history-year-detail-sub">숭실대학교 벤처중소기업센터 입주 기업 선정<br /></div>
-                      <div className="history-year-detail-sub">과학기술정보방송통신위원장 표창장 수상<br /></div>
-                      <div className="history-year-detail-sub">국토교통위원장 표창장 수상<br /></div>
-                      <div className="history-year-detail-sub">K-ESG 경영혁신 대상 수상<br /></div>
-                    </div>
-                </div>
+              </div>
             </div>
             <div className="history-year-2020">
-                <div className="history-year-title">2020</div>
-                <div className="history-year-detail">
-                    <div className="history-year-detail-month">8</div>
-                    <div className="history-year-detail-sub">엔아이소프트 회사 설립</div>
+              <div className="history-year-title">2020</div>
+              <div className="history-year-detail">
+                <div className="history-year-detail-month">8</div>
+                <div className="history-year-detail-sub">
+                  엔아이소프트 회사 설립
                 </div>
+              </div>
             </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section className="contact-us" id="contact">
-      <h1 className="contact-title">CONTACT US</h1>
-
-      <div className="contact-container">
-        {/* 왼쪽 정보 섹션 */}
-        <div className="contact-info">
-          <p className="contact-info-title">
-            문의사항을 남겨주시면
-            <br /> 확인 후 연락드리겠습니다.
-          </p>
-          <div className="contact-info-detail">
-            <p>
-              <strong>E-mail</strong> master@nisoft.kr
-            </p>
-            <p>
-              <strong>Tel</strong> 02-123-4567
-            </p>
           </div>
         </div>
+      </section>
 
-        {/* 오른쪽 폼 섹션 */}
-        <div className="contact-form">
-          <div className="form-tabs">
-            {/* 탭 버튼 */}
-            <button
-              className={`tab ${activeTab === "service" ? "active" : ""}`}
-              onClick={() => setActiveTab("service")}
-            >
-              서비스 문의
-            </button>
-            <button
-              className={`tab ${activeTab === "other" ? "active" : ""}`}
-              onClick={() => setActiveTab("other")}
-            >
-              기타 문의
-            </button>
+      <section className="contact-us" id="contact">
+        <h1 className="contact-title">CONTACT US</h1>
+
+        <div className="contact-container">
+          {/* 왼쪽 정보 섹션 */}
+          <div className="contact-info">
+            <p className="contact-info-title">
+              문의사항을 남겨주시면
+              <br /> 확인 후 연락드리겠습니다.
+            </p>
+            <div className="contact-info-detail">
+              <p>
+                <strong>E-mail</strong> master@nisoft.kr
+              </p>
+              <p>
+                <strong>Tel</strong> 070-4304-0092
+              </p>
+            </div>
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()}>
-            <label>담당자*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("담당자를 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>회사(소속)*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("회사(소속)를 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>이메일*</label>
-            <input
-              type="email"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("올바른 이메일을 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>연락처*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("연락처를 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>제목*</label>
-            <input
-              type="text"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("제목을 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-
-            <label>내용*</label>
-            <textarea
-              rows="10"
-              required
-              onInvalid={(e) =>
-                e.target.setCustomValidity("내용을 입력해 주세요")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-            ></textarea>
-
-            <div className="checkbox">
-              <input type="checkbox" id="agreement" />
-              <label htmlFor="agreement">
-                개인정보 수집 및 이용에 동의합니다.
-              </label>
+          {/* 오른쪽 폼 섹션 */}
+          <div className="contact-form">
+            <div className="form-tabs">
+              {/* 탭 버튼 */}
+              <button
+                className={`tab ${activeTab === "service" ? "active" : ""}`}
+                onClick={() => setActiveTab("service")}
+              >
+                서비스 문의
+              </button>
+              <button
+                className={`tab ${activeTab === "other" ? "active" : ""}`}
+                onClick={() => setActiveTab("other")}
+              >
+                기타 문의
+              </button>
             </div>
-            <p className="err-txt">문의하기가 실패했습니다. 다시 시도해 주십시오</p>
-            <button type="submit" className="submit-button"
-              onClick={()=>setSuccessModalOpen(true)}
-            >
-              문의하기
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-    {successModalOpen &&     
-      <SuccessModal
-        setSuccessModalOpen={setSuccessModalOpen}
-      />
-    }
 
+            <form onSubmit={handleSubmit}>
+              <label>담당자*</label>
+              <input
+                type="text"
+                name="manager"
+                value={formData.manager}
+                required
+                onChange={handleChange}
+                onInvalid={(e) => handleInvalid(e, "담당자를 입력해 주세요")}
+                onInput={resetCustomValidity}
+              />
+
+              <label>회사(소속)*</label>
+              <input
+                type="text"
+                name="company"
+                value={formData.company}
+                required
+                onChange={handleChange}
+                onInvalid={(e) => handleInvalid(e, "회사를 입력해 주세요")}
+                onInput={resetCustomValidity}
+              />
+
+              <label>이메일*</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                required
+                onChange={handleChange}
+                onInvalid={(e) =>
+                  handleInvalid(e, "유효한 이메일을 입력해 주세요")
+                }
+                onInput={resetCustomValidity}
+              />
+
+              <label>연락처*</label>
+              <input
+                type="text"
+                name="phone_number"
+                value={formData.phone_number}
+                required
+                onChange={handleChange}
+                onInvalid={(e) => handleInvalid(e, "연락처를 입력해 주세요")}
+                onInput={resetCustomValidity}
+              />
+
+              <label>제목*</label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                required
+                onChange={handleChange}
+                onInvalid={(e) => handleInvalid(e, "제목을 입력해 주세요")}
+                onInput={resetCustomValidity}
+              />
+
+              <label>내용*</label>
+              <textarea
+                name="content"
+                rows="10"
+                value={formData.content}
+                required
+                onChange={handleChange}
+                onInvalid={(e) => handleInvalid(e, "내용을 입력해 주세요")}
+                onInput={resetCustomValidity}
+              ></textarea>
+
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  id="agreement"
+                  name="동의"
+                  checked={formData.동의}
+                  required
+                  onChange={handleChange}
+                  onInvalid={(e) => handleInvalid(e, "동의가 필요합니다")}
+                  onInput={resetCustomValidity}
+                />
+                <label htmlFor="agreement">
+                  개인정보 수집 및 이용에 동의합니다.
+                </label>
+              </div>
+              {errorMsg && (
+                <p className="err-txt">
+                  문의하기가 실패했습니다. 다시 시도해 주십시오
+                </p>
+              )}
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={postLoading}
+              >
+                {postLoading ? "Loading..." : "문의하기"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      {successModalOpen && <SuccessModal resetForm={resetForm} />}
     </div>
   );
 }
