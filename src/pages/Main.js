@@ -114,7 +114,14 @@ function Main() {
 
   const [activeTab, setActiveTab] = useState("service");
 
+  document.querySelector('.contact-button-fixed').addEventListener('click', function (e) {
+    e.preventDefault(); 
+    document.querySelector('#contact').scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  });
 
+  
   return (
     <div className="main" id="main">
       <div className="visual-title-section" >

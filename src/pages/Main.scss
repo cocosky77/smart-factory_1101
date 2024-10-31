@@ -10,7 +10,23 @@
 
 .main{
 
-
+/* Contact 버튼을 고정 */
+.contact-button-fixed {
+  display: block;
+  position: fixed;
+  top: 30%;
+  right: 20px;
+  width: 120px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  z-index:3;
+  transition: all 0.2s;
+}
 .visual-title-section::before {
   content: "";
   position: absolute;
@@ -861,6 +877,10 @@
 
 @media (max-width: 768px) {
   .main{
+    .contact-button-fixed {
+      width: 100px;
+      line-height: 40px;
+    }
     label{
       font-size: 14px;
       margin-bottom: 6px;
