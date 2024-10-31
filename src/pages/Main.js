@@ -18,9 +18,12 @@ import aboutVision from "../assets/images/about-vision.png";
 import aboutBg from "../assets/images/about-bg.png";
 
 import smartFactoryVideo from "../assets/smartfactory.mp4";
+import SuccessModal from "../components/SuccessModal";
 
 
 function Main() {
+
+  const [successModalOpen, setSuccessModalOpen] = useState();
 
   const effectCards = [
     {
@@ -449,19 +452,21 @@ function Main() {
                 개인정보 수집 및 이용에 동의합니다.
               </label>
             </div>
-
-            <button type="submit" className="submit-button">
+            <p className="err-txt">문의하기가 실패했습니다. 다시 시도해 주십시오</p>
+            <button type="submit" className="submit-button"
+              onClick={()=>setSuccessModalOpen(true)}
+            >
               문의하기
             </button>
           </form>
         </div>
       </div>
     </section>
-
-
-
-
-
+    {successModalOpen &&     
+      <SuccessModal
+        setSuccessModalOpen={setSuccessModalOpen}
+      />
+    }
 
     </div>
   );
