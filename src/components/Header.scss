@@ -181,9 +181,10 @@
       flex-direction: column;
       background: #000;
       z-index: 10;
-      padding: 20px;
+      padding: 40px 20px 20px;
       top:60px;
       transition: 0.5s;
+      gap: 30px;
       &.active{
         right: 0;
       }
